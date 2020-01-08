@@ -1,0 +1,15 @@
+# Azure Resource Manager Templates: Adding Variables, Parameters, Functions and Dependencies
+
+By modifying from the basic template covered in the last section (`storage-account.json`) we can change it to reflect `storage-account-final.json` using a combination of parameters, variables and functions to give us the following benefits:
+
+* Remove hard-coded location
+* Remove hard-coded storage account name
+* Allow template to be executed against multiple environments (dev, test, prod)
+* Switch the storage type to use locally-redundant in non-prod environments and globally-redundant in prod
+
+```
+> az group create --name acgarmcourse --location southeastasia
+> az group deployment create --name "chapter03_02" --resource-group acgarmcourse --template-file ".\storage-account.json" --parameters storageAccountName=acgarmcourse123 environment=dev
+> az group deployment create --name "chapter03_02" --resource-group acgarmcourse --template-file ".\storage-account.json" --parameters storageAccountName=acgarmcourse123 environment=prod
+> az group delete --name acgarmcourse -y
+```
