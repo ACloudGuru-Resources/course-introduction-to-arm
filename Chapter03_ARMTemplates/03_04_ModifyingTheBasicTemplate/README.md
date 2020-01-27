@@ -1,6 +1,6 @@
-# Azure Resource Manager Templates: Adding Variables, Parameters, Functions and Dependencies
+# Azure Resource Manager Templates: Modifying the Basic Template
 
-By modifying from the basic template covered in the last section (`storage-account.json`) we can change it to reflect `storage-account-final.json` using a combination of parameters, variables and functions to give us the following benefits:
+By modifying from the basic template covered previously (`storage-account.json`) we can change it to reflect `storage-account-final.json` using a combination of parameters, variables and functions to give us the following benefits:
 
 * Remove hard-coded location
 * Remove hard-coded storage account name
