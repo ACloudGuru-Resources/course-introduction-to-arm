@@ -15,6 +15,7 @@
         }
     },
     "variables": {
+        "location": "[resourceGroup().location]",
         "storageAccountName": "[concat(parameters('storageAccountName'), parameters('environment'))]",
         "storageAccountType": "[if(equals(parameters('environment'), 'prod'), 'Standard_GRS', 'Standard_LRS')]"
     },
@@ -23,7 +24,7 @@
             "name": "[variables('storageAccountName')]",
             "type": "Microsoft.Storage/storageAccounts",
             "apiVersion": "2019-04-01",
-            "location": "[resourceGroup().location]",
+            "location": "[variables('location')]",
             "sku": {
                 "name": "[variables('storageAccountType')]"
             },
