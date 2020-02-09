@@ -34,7 +34,10 @@
                     "bypass": "None",
                     "defaultAction": "Deny",
                     "ipRules": [
-                        "[parameters('ipAddressToAllow')]"
+                        {
+                            "value": "[parameters('ipAddressToAllow')]",
+                            "action": "Allow"
+                        }
                     ]
                 },
                 "supportsHttpsTrafficOnly": true,

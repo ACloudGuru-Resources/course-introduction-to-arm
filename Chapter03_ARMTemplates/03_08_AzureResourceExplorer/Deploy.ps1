@@ -11,10 +11,10 @@ Set-Location $PSScriptRoot
 az group create --name $ResourceGroupName --location $Location
 
 # Get current IP address
-$ip = Invoke-RestMethod http://ipinfo.io/json | Select-Object -exp ip
+#$ip = Invoke-RestMethod http://ipinfo.io/json | Select-Object -exp ip
 
 # Deploy the ARM template to the resource group
-$output = az group deployment create --name "chapter03_07_$Environment" --resource-group $ResourceGroupName --template-file ".\storage-account.json" --parameters environment=$Environment
+$output = az group deployment create --name "chapter03_08_$Environment" --resource-group $ResourceGroupName --template-file ".\storage-account.json" --parameters environment=$Environment
 $output
 
 # Get the storageAccountName from the deployment output
