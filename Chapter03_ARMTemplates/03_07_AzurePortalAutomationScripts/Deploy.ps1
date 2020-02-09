@@ -23,7 +23,7 @@ $StorageAccountName = (ConvertFrom-Json ($output -join "`r`n")).properties.outpu
 # Update the index.html file to the $web container in the storage account (where the static website files are contained)
 az storage blob upload -f ".\index.html" --container "`$web" --name "index.html" --account-name $StorageAccountName
 
-# Output the static website URL and the command to execute to delete the environment
+# Output the command to execute to delete the environment
 Write-Host "Static website URL:"
 Write-Host $(az storage account show -n $StorageAccountName -g $ResourceGroupName --query "primaryEndpoints.web" --output tsv)
 Write-Host "To remove this environment execute:"
