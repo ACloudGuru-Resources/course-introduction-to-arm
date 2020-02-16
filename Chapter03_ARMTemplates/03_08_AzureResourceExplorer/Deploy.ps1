@@ -29,6 +29,6 @@ az storage container create --account-name $StorageAccountName --name "config"
 # Upload the config.json file to the config container in the storage account
 az storage blob upload -f ".\config.json" --container "config" --name "config.json" --account-name $StorageAccountName
 
-# Output the static website URL and the command to execute to delete the environment
+# Output the command to execute to delete the environment
 Write-Host "To remove this environment execute:"
 Write-Host "> az group delete --name $ResourceGroupName -y"
