@@ -14,7 +14,7 @@ az group create --name $ResourceGroupName --location $Location
 #$ip = Invoke-RestMethod http://ipinfo.io/json | Select-Object -exp ip
 
 # Deploy the ARM template to the resource group
-$output = az group deployment create --name "chapter03_08_$Environment" --resource-group $ResourceGroupName --template-file ".\storage-account.json" --parameters environment=$Environment
+$output = az group deployment create --name "chapter03_08_$Environment" --resource-group $ResourceGroupName --template-file "./storage-account.json" --parameters environment=$Environment
 $output
 
 # Get the storageAccountName from the deployment output
@@ -27,7 +27,7 @@ az storage container create --account-name $StorageAccountName --name "config"
 (Get-Content "config-template.json") -replace "{environment}",$Environment > config.json
 
 # Upload the config.json file to the config container in the storage account
-az storage blob upload -f ".\config.json" --container "config" --name "config.json" --account-name $StorageAccountName
+az storage blob upload -f "./config.json" --container "config" --name "config.json" --account-name $StorageAccountName
 
 # Output the command to execute to delete the environment
 Write-Host "To remove this environment execute:"

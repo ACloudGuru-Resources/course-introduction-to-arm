@@ -9,7 +9,7 @@ By modifying from the basic template covered previously (`storage-account.json`)
 
 ```
 > az group create --name acgarmcourse --location southeastasia
-> az group deployment create --name "chapter03_02" --resource-group acgarmcourse --template-file ".\storage-account.json" --parameters storageAccountName=acgarmcoursestorage123 environment=dev
-> az group deployment create --name "chapter03_02" --resource-group acgarmcourse --template-file ".\storage-account.json" --parameters storageAccountName=acgarmcoursestorage123 environment=prod
+> az group deployment create --name "chapter03_02" --resource-group acgarmcourse --template-file "./storage-account.json" --parameters storageAccountName=acgarmcoursestorage123 environment=dev
+> az group deployment create --name "chapter03_02" --resource-group acgarmcourse --template-file "./storage-account.json" --parameters storageAccountName=acgarmcoursestorage123 environment=prod
 > az group delete --name acgarmcourse -y
 ```

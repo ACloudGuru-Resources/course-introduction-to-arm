@@ -5,8 +5,8 @@ We will be creating a static website using Storage that we can automatically dep
 Place the template in the `storage-website.json` file and then execute the deployment PowerShell script using the below commands to execute it for a test and production environment:
 
 ```powershell
-.\Deploy.ps1 -ResourceGroupName acgarmsttcweb -Location southeastasia -Environment test
-.\Deploy.ps1 -ResourceGroupName acgarmsttcweb -Location southeastasia -Environment prod
+./Deploy.ps1 -ResourceGroupName acgarmsttcweb -Location southeastasia -Environment test
+./Deploy.ps1 -ResourceGroupName acgarmsttcweb -Location southeastasia -Environment prod
 ```
 
 You will need to add the following command to `Deploy.ps1` to enable the static website feature within the storage service:

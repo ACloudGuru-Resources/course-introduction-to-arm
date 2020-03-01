@@ -5,8 +5,8 @@ We will be creating a storage account and deploying a config file to it. We will
 Execute the deployment PowerShell script using the below commands to execute it for a test and production environment:
 
 ```powershell
-.\Deploy.ps1 -ResourceGroupName acgarmstorage -Location southeastasia -Environment test
-.\Deploy.ps1 -ResourceGroupName acgarmstorage -Location southeastasia -Environment prod
+./Deploy.ps1 -ResourceGroupName acgarmstorage -Location southeastasia -Environment test
+./Deploy.ps1 -ResourceGroupName acgarmstorage -Location southeastasia -Environment prod
 ```
 
 You will need to modify `storage-account.json` for the script to fully complete.
