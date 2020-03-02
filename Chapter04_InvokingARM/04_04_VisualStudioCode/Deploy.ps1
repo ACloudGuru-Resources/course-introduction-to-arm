@@ -5,7 +5,6 @@ Param (
 )
 
 # Import the Az modules
-# Could also just `Import-Module Az -Force`, but it's a bit slower
 Import-Module Az.Resources -Force
 Import-Module Az.Storage -Force
 
