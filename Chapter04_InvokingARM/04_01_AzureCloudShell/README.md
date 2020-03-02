@@ -1,6 +1,6 @@
-# Invoking Azure Resource Manager
+# Invoking Azure Resource Manager: Azure Cloud Shell
 
-We will deploy a static website that makes an AJAX call to a config file in a storage account as per the final lab of the previous chapter. This will be used across multiple invocation environments.
+We will deploy a static website that makes an AJAX call to a config file in a storage account as per the final lab of the previous chapter. This will be used across multiple invocation environments and will be executed in the Azure Cloud Shell using both PowerShell and Bash.
 
 ## PowerShell version
 
