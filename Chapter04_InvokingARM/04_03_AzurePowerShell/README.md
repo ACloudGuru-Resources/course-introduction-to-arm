@@ -9,7 +9,7 @@ Get-InstalledModule -Name AzureRM -AllVersions | select Name,Version
 Get-InstalledModule -Name Az -AllVersions | select Name,Version
 ```
 
-If you need to uninstall `AzureRM` you can [follow the documentation](https://docs.microsoft.com/en-us/powershell/azure/uninstall-az-ps?view=azps-3.5.0#uninstall-the-azurerm-module). If you have an old version of the `Az` module installed (1.0) then yu can uninstall that by [following the documentation](https://docs.microsoft.com/en-us/powershell/azure/uninstall-az-ps?view=azps-3.5.0#uninstall-azure-powershell-from-powershell-get).
+If you need to uninstall `AzureRM` you can [follow the documentation](https://docs.microsoft.com/en-us/powershell/azure/uninstall-az-ps?view=azps-3.5.0#uninstall-the-azurerm-module). If you have an old version of the `Az` module installed (1.0) then you can uninstall that by [following the documentation](https://docs.microsoft.com/en-us/powershell/azure/uninstall-az-ps?view=azps-3.5.0#uninstall-azure-powershell-from-powershell-get).
 
 If you get stuck editing `Deploy.ps1` to use the PowerShell Cmdlets then you can reference `Deploy-final.ps1`.
 
