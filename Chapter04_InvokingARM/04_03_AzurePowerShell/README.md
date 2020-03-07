@@ -23,9 +23,9 @@ To install Azure PowerShell follow the [installation instructions](https://docs.
 
 ## Lab exercise
 
-If you get stuck editing `Deploy.ps1` to use the PowerShell Cmdlets then you can reference `Deploy-final.ps1`.
+We will change the `Deploy.ps1` file from previous labs to work against Azure PowerShell. You will likely need to use the [reference documentation](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/deploy-powershell) to help understand the equivalent commands.
 
-First you need to [install the Cmdlets](https://docs.microsoft.com/en-us/powershell/azure/install-az-ps).
+If you get stuck editing `Deploy.ps1` to use the PowerShell Cmdlets then you can reference `Deploy-final.ps1`.
 
 Execute the deployment PowerShell script using the below commands to execute it for a test and production environment. Ensure you have logged in first using the PowerShell Cmdlets via `Connect-AzAccount`:
 
