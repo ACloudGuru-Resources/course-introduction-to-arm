@@ -30,7 +30,7 @@ We will deploy a website to Azure Web Apps where the definition of the website c
 
 ## Deployment failure
 
-If your deployment fails with the error `'Get-AzureRMResourceGroup' is not recognized as the name of a cmdlet, function, script, file, or operable program.` then the problem is that you have the new Az PowerShell Cmdlets installed rather than the legacy AzureRM PowerShell Cmdlets that the `Deploy-AzureResourceGroup.ps1` file that Visual Studio creates for you works against.s
+If your deployment fails with the error `'Get-AzureRMResourceGroup' is not recognized as the name of a cmdlet, function, script, file, or operable program.` then the problem is that you have the new Az PowerShell Cmdlets installed rather than the legacy AzureRM PowerShell Cmdlets that the `Deploy-AzureResourceGroup.ps1` file that Visual Studio creates for you works against.
 
 To rectify the problem you need to follow these steps:
 
