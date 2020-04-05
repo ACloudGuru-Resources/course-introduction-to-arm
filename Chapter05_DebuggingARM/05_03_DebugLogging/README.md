@@ -2,28 +2,34 @@
 
 We will make use of the verbose output and debug logging functionality to get more visibility of our ARM template deployments in both Azure CLI and Azure PowerShell.
 
-To get verbose output with Azure CLI we will be using an open source ["show deployment" Azure CLI extension](https://github.com/stuartleeks/az-cli-extension-show-deployment).
-
 ## Prep
 
 ```powershell
-> az group create --name acgarmcourse0502 --location southeastasia
-> az extension add --source https://azclishowdeployment.blob.core.windows.net/releases/dist/show_deployment-0.0.7-py2.py3-none-any.whl
+az group create --name acgarmcourse0503 --location southeastasia
 ```
 
 ## Verbose Output
 
 ### Azure CLI
 
+At time of publishing you need an extension to show verbose output during deployment in Azure CLI. We will be using an open source ["show deployment" Azure CLI extension](https://github.com/stuartleeks/az-cli-extension-show-deployment). To install it:
+
 ```powershell
-> az group deployment create --name "chapter05_03" --resource-group acgarmcourse0502 --template-file "./azuredeploy.json" --parameters environment=dev --no-wait
-> az group deployment watch --resource-group acgarmcourse0502
+az extension add --source https://azclishowdeployment.blob.core.windows.net/releases/dist/show_deployment-0.0.7-py2.py3-none-any.whl
+```
+
+Then you can execute the following to see it:
+
+```powershell
+az group deployment create --name "chapter05_03" --resource-group acgarmcourse0503 --template-file "./azuredeploy.json" --parameters environment=dev --no-wait
+az group deployment watch --resource-group acgarmcourse0503 --refresh 1
+
 ```
 
 ### Azure PowerShell
 
 ```powershell
-New-AzResourceGroupDeployment -Name "chapter05_03" -ResourceGroupName acgarmcourse0502 -TemplateFile "./azuredeploy.json" -TemplateParameterObject @{"environment"="test"} -Verbose
+New-AzResourceGroupDeployment -Name "chapter05_03" -ResourceGroupName acgarmcourse0503 -TemplateFile "./azuredeploy.json" -TemplateParameterObject @{"environment"="test"} -Verbose
 ```
 
 ## Debug Logging
@@ -31,17 +37,40 @@ New-AzResourceGroupDeployment -Name "chapter05_03" -ResourceGroupName acgarmcour
 ### Azure CLI
 
 ```powershell
-> az group deployment create --name "chapter05_03" --resource-group acgarmcourse0502 --template-file "./azuredeploy-error.json" --parameters environment=dev --debug > output-cli.txt
+az group deployment create --name "chapter05_03" --resource-group acgarmcourse0503 --template-file "./azuredeploy-error.json" --parameters environment=dev --debug
 ```
 
 ### Azure PowerShell
 
 ```powershell
-New-AzResourceGroupDeployment -Name "chapter05_03" -ResourceGroupName acgarmcourse0502 -TemplateFile "./azuredeploy-error.json" -TemplateParameterObject @{"environment"="test"} -DeploymentDebugLogLevel All
+function New-AzResourceGroupDeploymentWithDebug($Name, $ResourceGroupName, $TemplateFile, $TemplateParameterObject) {
+    $deploymentResult = New-AzResourceGroupDeployment -Name $Name -ResourceGroupName $ResourceGroupName -TemplateFile $TemplateFile -TemplateParameterObject $TemplateParameterObject -DeploymentDebugLogLevel All -Verbose
+    $deploymentResult
+    if ($deploymentResult.ProvisioningState -eq "Failed") {
+        Write-Host "Deployment failed; retrieving operation details for debugging..."
+        $operations = Get-AzResourceGroupDeploymentOperation -DeploymentName $Name -ResourceGroupName $ResourceGroupName
+        $operations | ForEach-Object {
+            Write-Host "Operation $($_.id):" -ForegroundColor Magenta
+            Write-Host "Properties:" -ForegroundColor Cyan
+            $_.Properties | Select-Object -Property * -ExcludeProperty Request,Response | ConvertTo-Json -Depth 10
+            if ($_.Properties.Request) {
+                Write-Host "Request:" -ForegroundColor Cyan
+                $_.Properties.Request | ConvertTo-Json -Depth 10
+            }
+            if ($_.Properties.Response) {
+                Write-Host "Response:" -ForegroundColor Cyan
+                $_.Properties.Response | ConvertTo-Json -Depth 10
+            }
+        }
+    }
+}
+
+New-AzResourceGroupDeploymentWithDebug -Name "chapter05_03" -ResourceGroupName acgarmcourse0503 -TemplateFile "./azuredeploy-error.json" -TemplateParameterObject @{"environment"="test"}
+
 ```
 
 ## Clean up
 
 ```powershell
-> az group delete --name acgarmcourse0502 -y
+az group delete --name acgarmcourse0503 -y
 ```
