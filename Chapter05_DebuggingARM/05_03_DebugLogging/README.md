@@ -21,7 +21,7 @@ az extension add --source https://azclishowdeployment.blob.core.windows.net/rele
 Then you can execute the following to see it:
 
 ```powershell
-az group deployment create --name "chapter05_03" --resource-group acgarmcourse0503 --template-file "./azuredeploy.json" --parameters environment=dev --no-wait
+az group deployment create --name "chapter05_03_verbose_cli" --resource-group acgarmcourse0503 --template-file "./azuredeploy.json" --parameters environment=dev --no-wait
 az group deployment watch --resource-group acgarmcourse0503 --refresh 1
 
 ```
@@ -29,7 +29,7 @@ az group deployment watch --resource-group acgarmcourse0503 --refresh 1
 ### Azure PowerShell
 
 ```powershell
-New-AzResourceGroupDeployment -Name "chapter05_03" -ResourceGroupName acgarmcourse0503 -TemplateFile "./azuredeploy.json" -TemplateParameterObject @{"environment"="test"} -Verbose
+New-AzResourceGroupDeployment -Name "chapter05_03_verbose_pwsh" -ResourceGroupName acgarmcourse0503 -TemplateFile "./azuredeploy.json" -TemplateParameterObject @{"environment"="test"} -Verbose
 ```
 
 ## Debug Logging
@@ -37,7 +37,7 @@ New-AzResourceGroupDeployment -Name "chapter05_03" -ResourceGroupName acgarmcour
 ### Azure CLI
 
 ```powershell
-az group deployment create --name "chapter05_03" --resource-group acgarmcourse0503 --template-file "./azuredeploy-error.json" --parameters environment=dev --debug
+az group deployment create --name "chapter05_03_debug_cli" --resource-group acgarmcourse0503 --template-file "./azuredeploy-error.json" --parameters environment=dev --debug
 ```
 
 ### Azure PowerShell
@@ -65,7 +65,7 @@ function New-AzResourceGroupDeploymentWithDebug($Name, $ResourceGroupName, $Temp
     }
 }
 
-New-AzResourceGroupDeploymentWithDebug -Name "chapter05_03" -ResourceGroupName acgarmcourse0503 -TemplateFile "./azuredeploy-error.json" -TemplateParameterObject @{"environment"="test"}
+New-AzResourceGroupDeploymentWithDebug -Name "chapter05_03_debug_pwsh" -ResourceGroupName acgarmcourse0503 -TemplateFile "./azuredeploy-error.json" -TemplateParameterObject @{"environment"="test"}
 
 ```
 
