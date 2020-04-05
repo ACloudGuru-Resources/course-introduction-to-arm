@@ -20,7 +20,9 @@ az group deployment create --name "chapter05_04_cli" --resource-group acgarmcour
 
 ```powershell
     Import-Module "./New-AzResourceGroupDeploymentWithErrorHandling.psm1" -Force
-    New-AzResourceGroupDeploymentWithErrorHandling -Name "chapter05_04_pwsh" -ResourceGroupName acgarmcourse0504 -TemplateFile "./azuredeploy-error.json" -TemplateParameterObject @{"environment"="test"}
+    if (-not (New-AzResourceGroupDeploymentWithErrorHandling -Name "chapter05_04_pwsh" -ResourceGroupName acgarmcourse0504 -TemplateFile "./azuredeploy-error.json" -TemplateParameterObject @{"environment"="test"})) {
+        throw "Failed"
+    }
 ```
 
 ## Clean up

@@ -1,5 +1,5 @@
 function New-AzResourceGroupDeploymentWithErrorHandling($Name, $ResourceGroupName, $TemplateFile, $TemplateParameterObject) {
-    $deploymentName = ("$Name-" + (Get-Date -Format "yyyy-MM-dd-HH-mm-ss"))
+    $deploymentName = ("$Name-" + (Get-Date -Format "yyyy-MM-ddTHH.mm.ss"))
     $result = New-AzResourceGroupDeployment -Name $deploymentName -ResourceGroupName $ResourceGroupName -TemplateFile $TemplateFile -TemplateParameterObject $TemplateParameterObject -ErrorAction Continue -Verbose
     Write-Host (ConvertTo-Json $result) -ForegroundColor Gray
 
