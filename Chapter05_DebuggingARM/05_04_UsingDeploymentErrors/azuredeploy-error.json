@@ -1,0 +1,49 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "environment": {
+            "type": "string",
+            "allowedValues": [
+                "dev",
+                "test",
+                "prod"
+            ]
+        }
+    },
+    "variables": {
+        "location": "[concat(resourceGroup().location)]",
+        "storageAccountName": "[toLower(take(concat(resourceGroup().name, parameters('environment'), uniqueString(resourceGroup().id)), 23))]",
+        "storageAccountType": "[if(equals(parameters('environment'), 'prod'), 'Standard_GRS', 'Standard_LRS')]"
+    },
+    "resources": [
+        {
+            "name": "[concat(variables('storageAccountName'), '1')]",
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2019-04-01",
+            "location": "[variables('location')]",
+            "sku": {
+                "name": "[variables('storageAccountType')]"
+            },
+            "kind": "StorageV2",
+            "properties": {}
+        },
+        {
+            "name": "[concat(variables('storageAccountName'), '2')]",
+            "type": "Microsoft.Storage/unknown",
+            "apiVersion": "2019-04-01",
+            "location": "[variables('location')]",
+            "sku": {
+                "name": "[variables('storageAccountType')]"
+            },
+            "kind": "StorageV2",
+            "properties": {}
+        }
+    ],
+    "outputs": {
+        "storageAccountName": {
+            "type": "string",
+            "value": "[variables('storageAccountName')]"
+        }
+    }
+}
