@@ -10,6 +10,8 @@ az group create --name acgarmcourse0503 --location southeastasia
 
 ## Verbose Output
 
+We will be provisioning a template that provisions a (free tier) server farm and a storage account along with a web app on the server farm with a connection string pointing to the storage account. This template has the requisite complexity that warrants us needing a better view of what's happening while the deployment completes.
+
 ### Azure CLI
 
 At time of publishing you need an extension to show verbose output during deployment in Azure CLI. We will be using an open source ["show deployment" Azure CLI extension](https://github.com/stuartleeks/az-cli-extension-show-deployment). To install it:
@@ -33,6 +35,8 @@ New-AzResourceGroupDeployment -Name "chapter05_03_verbose_pwsh" -ResourceGroupNa
 ```
 
 ## Debug Logging
+
+We will be provisioning an erroneous template involving two storage accounts - one with invalid name, the other with an invalid 'Kind'.
 
 ### Azure CLI
 

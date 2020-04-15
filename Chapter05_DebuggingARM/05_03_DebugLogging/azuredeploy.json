@@ -14,8 +14,15 @@
     "variables": {
         "location": "[concat(resourceGroup().location)]",
         "storageAccountName": "[toLower(take(concat(resourceGroup().name, parameters('environment'), uniqueString(resourceGroup().id)), 24))]",
-        "storageAccountName2": "[toLower(take(concat(resourceGroup().name, '2', parameters('environment'), uniqueString(resourceGroup().id)), 24))]",
-        "storageAccountType": "[if(equals(parameters('environment'), 'prod'), 'Standard_GRS', 'Standard_LRS')]"
+        "storageAccountType": "[if(equals(parameters('environment'), 'prod'), 'Standard_GRS', 'Standard_LRS')]",
+        "storageAccountRef": "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
+        "storageConnectionStringWithoutKey": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';AccountKey=')]",
+        "hostingPlanName": "[concat(resourceGroup().name, parameters('environment'), uniqueString(resourceGroup().id))]",
+        "hostingPlanRef": "[resourceId('Microsoft.Web/serverfarms', variables('hostingPlanName'))]",
+        "hostingPlanSkuName": "F1",
+        "hostingPlanSkuCapacity": "1",
+        "webappName": "[concat(resourceGroup().name, parameters('environment'), uniqueString(resourceGroup().id))]",
+        "webappRef": "[resourceId('Microsoft.Web/sites', variables('webappName'))]"
     },
     "resources": [
         {
@@ -30,21 +37,73 @@
             "properties": {}
         },
         {
-            "name": "[variables('storageAccountName2')]",
-            "type": "Microsoft.Storage/storageAccounts",
-            "apiVersion": "2019-04-01",
+            "apiVersion": "2018-02-01",
+            "name": "[variables('hostingPlanName')]",
+            "type": "Microsoft.Web/serverfarms",
             "location": "[variables('location')]",
             "sku": {
-                "name": "[variables('storageAccountType')]"
+                "name": "[variables('hostingPlanSkuName')]",
+                "capacity": "[variables('hostingPlanSkuCapacity')]"
             },
-            "kind": "StorageV2",
-            "properties": {}
+            "properties": {
+                "name": "[variables('hostingPlanName')]"
+            }
+        },
+        {
+            "apiVersion": "2018-02-01",
+            "name": "[variables('webappName')]",
+            "type": "Microsoft.Web/sites",
+            "location": "[variables('location')]",
+            "dependsOn": [
+                "[variables('hostingPlanRef')]"
+            ],
+            "properties": {
+                "name": "[variables('webappName')]",
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('hostingPlanName'))]"
+            },
+            "resources": [
+                {
+                    "apiVersion": "2018-02-01",
+                    "type": "config",
+                    "name": "connectionstrings",
+                    "dependsOn": [
+                        "[variables('webappName')]",
+                        "[variables('storageAccountRef')]"
+                    ],
+                    "properties": {
+                        "StorageAccount": {
+                            "value": "[concat(variables('storageConnectionStringWithoutKey'), listkeys(variables('storageAccountRef'), '2019-04-01').keys[0].value)]",
+                            "type": "Custom"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "apiVersion": "2018-05-01-preview",
+            "name": "[variables('webappName')]",
+            "type": "Microsoft.Insights/components",
+            "location": "[variables('location')]",
+            "dependsOn": [
+                "[variables('webappRef')]"
+            ],
+            "properties": {
+                "ApplicationId": "[variables('webappName')]"
+            }
         }
     ],
     "outputs": {
         "storageAccountName": {
             "type": "string",
             "value": "[variables('storageAccountName')]"
+        },
+        "hostingPlanName": {
+            "type": "string",
+            "value": "[variables('hostingPlanName')]"
+        },
+        "webAppName": {
+            "type": "string",
+            "value": "[variables('webAppName')]"
         }
     }
 }
