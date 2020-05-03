@@ -12,9 +12,13 @@ az group create --name acgarmcourse0503 --location southeastasia
 
 We will be provisioning a template that provisions a (free tier) server farm and a storage account along with a web app on the server farm with a connection string pointing to the storage account. This template has the requisite complexity that warrants us needing a better view of what's happening while the deployment completes.
 
-### Azure CLI
+### Azure CLI (Windows only)
 
-At time of publishing you need an extension to show verbose output during deployment in Azure CLI. We will be using an open source ["show deployment" Azure CLI extension](https://github.com/stuartleeks/az-cli-extension-show-deployment). To install it:
+At time of publishing you need an extension to show verbose output during deployment in Azure CLI. We will be using an open source ["show deployment" Azure CLI extension](https://github.com/stuartleeks/az-cli-extension-show-deployment).
+
+**Unfortunately this extension only works on Windows so if you are on another operating system you'll need to skip this bit and go to the Azure PowerShell bit.**
+
+To install it:
 
 ```powershell
 az extension add --source https://azclishowdeployment.blob.core.windows.net/releases/dist/show_deployment-0.0.7-py2.py3-none-any.whl
