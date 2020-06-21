@@ -32,7 +32,7 @@ $ConfigUrl = $result.Outputs.configUrl.value + "/config.json"
 $AccountKey = (Get-AzStorageAccountKey -ResourceGroupName $ResourceGroupName -AccountName $StorageAccountName).Value[0]
 $StorageContext = New-AzStorageContext -StorageAccountName $StorageAccountName -StorageAccountKey $AccountKey
 # OR, if we grant our user account BlobStorageAccess the above two lines can be replaced with:
-# $StorageContext = New-AzStorageContext -StorageAccountName $StorageAccountName -ConnectedAccount
+# $StorageContext = New-AzStorageContext -StorageAccountName $StorageAccountName -UseConnectedAccount
 Set-AzStorageBlobContent -File "./config.json" -Container "config" -Blob "config.json" -Context $StorageContext -Force -Properties @{"ContentType"="application/json"}
 
 # Upload the index.html file to the $web container in the storage account
